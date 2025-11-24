@@ -1,26 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@plugin "daisyui" {
+  themes: light --default, dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  --color-primary: #2c5e50;
+  /* Deep Forest Green - main brand color */
+  --color-primary-dark: #1f4238;
+  /* Darker green for hover states */
+  --color-primary-light: #d4e5e0;
+  /* Light green for backgrounds */
+
+  --color-secondary: #8fbc8f;
+  /* Sage Green - secondary actions */
+  --color-secondary-dark: #6b9a6b;
+  /* Darker sage for hover */
+  --color-secondary-light: #e8f5e8;
+  /* Light sage for backgrounds */
+
+  --color-accent: #d97757;
+  /* Terracotta - badges, CTA, 'Rent Now' */
+  --color-accent-dark: #c25a3a;
+  /* Darker terracotta for hover */
+  --color-accent-light: #f8e5de;
+  /* Light terracotta for backgrounds */
+
+  --color-neutral: #292524;
+  /* Warm Charcoal - primary text */
+  --color-neutral-content: #ffffff;
+  /* White text on neutral bg */
+
+  --color-base-100: #fbfaf8;
+  /* Warm Off-White/Paper - main background */
+  --color-base-200: #f5f3f0;
+  /* Slightly darker warm - section backgrounds */
+  --color-base-300: #eae7e3;
+  /* Warm gray - borders, dividers */
+  --color-base-content: #292524;
+  /* Warm charcoal text on base backgrounds */
+
+  --color-info: #7ca1b5;
+  /* Muted Slate - informational messages */
+  --color-success: #4ade80;
+  /* Soft Green - success messages */
+  --color-warning: #fcd34d;
+  /* Soft Yellow - warning messages */
+  --color-error: #ef4444;
+  /* Red - error messages */
+
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Public Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Libre Baskerville", serif;
 }
