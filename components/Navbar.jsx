@@ -1,9 +1,10 @@
 // components/Navbar.jsx
+"use client";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
-  // Mock auth state - replace with your actual auth logic (e.g., useSession)
-  const user = null; 
+  const { user, logout } = useAuth();
 
   const navLinks = (
     <>
@@ -13,6 +14,14 @@ const Navbar = () => {
       <li><Link href="/about">About</Link></li>
     </>
   );
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <div className="navbar bg-base-100 sticky top-0 z-50 shadow-md border-b border-base-200 px-4 sm:px-8">
@@ -51,38 +60,39 @@ const Navbar = () => {
       </div>
       
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 font-medium text-neutral gap-2">
+        <ul className="menu menu-horizontal px-1 font-medium text-neutral">
           {navLinks}
         </ul>
       </div>
-
-      <div className="navbar-end gap-3">
+      
+      <div className="navbar-end">
         {user ? (
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img
-                  alt="User Avatar"
-                  src={user.image || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
-                />
+              <div className="w-10 rounded-full bg-primary text-white flex items-center justify-center">
+                <span className="text-lg font-bold">
+                  {user.displayName?.charAt(0) || user.email?.charAt(0) || "U"}
+                </span>
               </div>
             </div>
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
-                <Link href="/add-book" className="justify-between">
-                  Add a Book
-                  <span className="badge badge-accent badge-sm">New</span>
-                </Link>
+              <li className="menu-title">
+                <span>{user.displayName || user.email}</span>
               </li>
+              <li><Link href="/add-book">Add a Book</Link></li>
               <li><Link href="/my-shelf">My Shelf</Link></li>
-              <li><button className="text-error">Logout</button></li>
+              <li><Link href="/profile">Profile</Link></li>
+              <li><a onClick={handleLogout}>Logout</a></li>
             </ul>
           </div>
         ) : (
-          <Link href="/login" className="btn btn-primary text-white px-6">
+          <Link
+            href="/login"
+            className="btn btn-primary text-white px-6"
+          >
             Login / Join
           </Link>
         )}
